@@ -42,3 +42,10 @@ def check_victory(board, symbol):
     
     return False
 
+def board_full(board):
+    for case in board:
+        if case == " " :
+            return False
+    return True
+          
+           
