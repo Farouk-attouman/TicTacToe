@@ -17,3 +17,28 @@ def game_command():
 
 
 
+def check_victory(board, symbol):
+    # line
+    if board[0] == symbol and board[1] == symbol and board[2] == symbol :
+        return True
+    if board[3] == symbol and board[4] == symbol and board[5] == symbol :
+        return True
+    if board[6] == symbol and board[7] == symbol and board[8] == symbol :
+        return True 
+    
+    # column
+    if board[0] == symbol and board[3] == symbol and board[6] == symbol :
+        return True
+    if board[1] == symbol and board[4] == symbol and board[7] == symbol :
+        return True
+    if board[2] == symbol and board[5] == symbol and board[8] == symbol :
+        return True
+    
+    # diagonale
+    if board[0] == symbol and board[4] == symbol and board[8] == symbol :
+        return True
+    if board[2] == symbol and board[4] == symbol and board[6] == symbol :
+        return True
+    
+    return False
+
