@@ -55,7 +55,62 @@ def get_empty_case(board):
             empty_case.append(i)
     return empty_case
 
-          
+
+def player_vs_player(board,symbol):
+
+    board = [" "," "," "," "," "," "," "," "," "]
+    current_player = "X"
+    print("----MODE DEUX JOUEURS----")
+    print("Joueur 1 : X, Joueur 2 : O ")
+    game_command()
+
+    while True:
+        display_board(board)
+        print()
+        print(f"Tour du joueur {current_player}")   
+
+        while True :
+            choice_player = int(input("Enter a number between 1-9"))
+            if not isinstance(choice_player, int):
+                print("Veuillez entrer un chiffre svp")
+                continue
+            
+            position = choice_player - 1
+
+            if position < 0 and position > 8 :
+                print("Veuillez entrer un nombre entre 1 et 9")
+                continue
+
+            break
+
+        board[position] = current_player
+
+        # Victory
+        if check_victory(board, current_player):
+            display_board(board)
+            print(f"Le joueur {current_player} a gagné ! BRAVO ")
+            break
+
+        # Draw
+        if board_full(board):
+            display_board(board)
+            print(f"La table de jeu est plein, match nul !!!")
+            break
+
+
+        # Change player
+        if current_player == "X" :
+            current_player == "O"
+        else :
+            current_player == "O"
+
+
+
+
+            
+
+
+
 
 
         
