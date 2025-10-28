@@ -47,5 +47,19 @@ def board_full(board):
         if case == " " :
             return False
     return True
+
+def get_empty_case(board):
+    empty_case = []
+    for i in range(9):
+        if board[i] == " ":
+            empty_case.append(i)
+    return empty_case
+
           
-           
+
+
+        
+        
+
+
+
