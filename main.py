@@ -56,11 +56,11 @@ def get_empty_case(board):
     return empty_case
 
 
-def player_vs_player(board,symbol):
+def player_vs_player():
 
     board = [" "," "," "," "," "," "," "," "," "]
     current_player = "X"
-    print("----MODE DEUX JOUEURS----")
+    print(f"\n----JOUEUR VS JOUEUR----")
     print("Joueur 1 : X, Joueur 2 : O ")
     game_command()
 
@@ -70,15 +70,19 @@ def player_vs_player(board,symbol):
         print(f"Tour du joueur {current_player}")   
 
         while True :
-            choice_player = int(input("Enter a number between 1-9"))
+            choice_player = int(input("Enntrer un chiffre entre 1-9 "))
             if not isinstance(choice_player, int):
                 print("Veuillez entrer un chiffre svp")
                 continue
             
             position = choice_player - 1
 
-            if position < 0 and position > 8 :
+            if position < 0 or position > 8 :
                 print("Veuillez entrer un nombre entre 1 et 9")
+                continue
+
+            if board[position] != " ":
+                print("Cette case est déja occupée, prenez une autre \n")
                 continue
 
             break
@@ -100,10 +104,40 @@ def player_vs_player(board,symbol):
 
         # Change player
         if current_player == "X" :
-            current_player == "O"
+            current_player = "O"
         else :
-            current_player == "O"
+            current_player = "X"
 
+
+
+
+
+def main_menu():
+    while True:
+        print(f"\nMenu Principal du jeu")
+        print(f"\n=== Jeu du TicTacToe ===")
+        print(f"1. Joueur vs Joueur")
+        print(f"2. Quittez")
+
+        choice = int(input(f"\nQuel mode de jeu voulez-vous jouer ? "))
+        
+        if choice == 1 :
+            player_vs_player()
+
+            replay = input("Voulez-vous rejouer ? (o/n) :")
+            if replay != "o":
+                print("Merci d'avoir joué !")
+                break
+
+        elif choice == 2 :
+            print("Merci à bientôt")
+            break
+
+        else :
+            print("Veuillez entrer une option valide")
+
+
+main_menu()
 
 
 
