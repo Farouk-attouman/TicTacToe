@@ -121,6 +121,47 @@ def ai_easy(board, symbol):
 
 
 
+def ai_hard(board, symbol):
+    if symbol == "X":
+        next_player = "O"
+    else :
+        next_player = "X"
+
+    empty_case = get_empty_case(board)
+    if not empty_case :
+        return False
+    
+    # Bloquer l'adversaire
+    for case in empty_case :
+        board_test = board.copy()
+        board_test[case] = next_player
+        if check_victory(board_test, next_player):
+            return case
+
+    # Gagner 
+    for case in empty_case:
+        board_test = board.copy()
+        board_test[case] = symbol
+        if check_victory(board_test, symbol):
+            return case
+
+    # Jouer au centre
+    if board[4] == " ":
+        return board[4]
+    
+    # Jouer les coins
+    corners = [0,2,6,8]
+    for corner in corners :
+        if corner in empty_case:
+            return corner
+        
+    # Jouer les miieux
+    middles = [1,3,5,7]
+    for middle in middles :
+        if middle in empty_case :
+            return middle
+
+
 
 
 
@@ -150,8 +191,7 @@ def main_menu():
             print("Veuillez entrer une option valide")
 
 
+
 main_menu()
 
 
-
-            
