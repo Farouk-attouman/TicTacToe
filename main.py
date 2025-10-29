@@ -329,9 +329,11 @@ def ia_vs_ia():
     turn_ai1 = True
     while True :
         display_board(board)
+        print("Debut du jeu, appuyer pour debuter le match")
 
         if turn_ai1 :
             print(f"Tour de l'IA 1 ({level_ai1})")
+            print(f"Le symbole de l'IA 1 est X")
             position = ai1_function(board, "X")
 
             if position is not False:
@@ -344,7 +346,8 @@ def ia_vs_ia():
         else :
             # Tour IA 2
             print(f"Tour de l'IA 2 ({level_ai2})")
-            position = ai2_function(board, "X")
+            print(f"Le symbole de l'IA 1 est O")
+            position = ai2_function(board, "O")
 
             if position is not False:
                 board[position] = "O"
@@ -368,6 +371,8 @@ def ia_vs_ia():
 
         # Changer de tour
         turn_ai1 = not turn_ai1
+        # Control des tours
+        input("Appuyer sur entrer pour continuer :  ")
 
 
 
@@ -378,7 +383,7 @@ def main_menu():
         print(f"1. Joueur VS Joueur")
         print(f"2. Joueur VS IA")
         print(f"3. IA VS IA")
-        print(f"3. Quittez")
+        print(f"4. Quittez")
 
         choice = int(input(f"\nQuel mode de jeu voulez-vous jouer ? "))
         
@@ -389,6 +394,9 @@ def main_menu():
             player_vs_ai()
 
         elif choice == 3 :
+            ia_vs_ia()
+
+        elif choice == 4 :
             print("Merci à bientôt")
             break
 
