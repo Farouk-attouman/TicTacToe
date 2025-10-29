@@ -1,3 +1,5 @@
+import random
+
 def display_board(board):
     print("\n")
     print(f" {board[0]} | {board[1]} | {board[2]}")
@@ -111,6 +113,14 @@ def player_vs_player():
 
 
 
+def ia_facile():
+    empty_case = get_empty_case()
+    if empty_case :
+        return random.choice(empty_case)
+    return False
+
+
+
 
 def main_menu():
     while True:
@@ -142,13 +152,3 @@ main_menu()
 
 
             
-
-
-
-
-
-        
-        
-
-
-
