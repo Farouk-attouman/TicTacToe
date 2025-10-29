@@ -275,12 +275,109 @@ def player_vs_ai():
         player_turn = not player_turn
 
 
+def ia_vs_ia():
+    board = [" ", " ", " ", " ", " ", " ", " ", " ", " "]
+    print("\n----IA VS IA----")
+    print("\nChoisir le niveau de l'IA 1")
+    print("1. Mode Facile")
+    print("2. Mode Difficile")
+
+    while True:
+        try:
+            choice_ai1 = int(input("Entrer votre choix 1-2 : "))
+            if choice_ai1 == 1:
+                ai1_function = ai_easy
+                level_ai1 = "facile"
+                break
+
+            elif choice_ai1 == 2:
+                ai1_function = ai_hard
+                level_ai1 = "difficile"
+                break
+
+            else: 
+                print("Veuillez entrer soit 1 ou 2 : ")
+
+        except ValueError:
+            print("Veuillez entre un chiffre")
+
+    print("\nChoisir le niveau de l'IA 2")
+    print("1. Mode Facile")
+    print("2. Mode Difficile")
+
+    while True:
+        try:
+            choice_ai2 = int(input("Entrer votre choix 1-2 : "))
+            if choice_ai2 == 1:
+                ai2_function = ai_easy
+                level_ai2 = "facile"
+                break
+
+            elif choice_ai2 == 2:
+                ai2_function = ai_hard
+                level_ai2 = "difficile"
+                break
+
+            else: 
+                print("Veuillez entrer soit 1 ou 2 : ")
+
+        except ValueError:
+            print("Veuillez entre un chiffre")
+    
+    print("\nLe match débute")
+
+    turn_ai1 = True
+    while True :
+        display_board(board)
+
+        if turn_ai1 :
+            print(f"Tour de l'IA 1 ({level_ai1})")
+            position = ai1_function(board, "X")
+
+            if position is not False:
+                board[position] = "X"
+                current_symbol = "X"
+            else : 
+                print("Erreur IA 1 !")
+                break
+
+        else :
+            # Tour IA 2
+            print(f"Tour de l'IA 2 ({level_ai2})")
+            position = ai2_function(board, "X")
+
+            if position is not False:
+                board[position] = "O"
+                current_symbol = "O"
+            else : 
+                print("Erreur IA 2 !")
+                break
+        
+        if check_victory(board, current_symbol):
+            display_board(board)
+            if turn_ai1:
+                print(f"L'IA 1 ({level_ai1}) a gagné")
+            else:
+                print(f"L'IA 2 ({level_ai2}) a gagné")
+            break
+
+        if board_full(board):
+            display_board(board)
+            print("Match nul")
+            break
+
+        # Changer de tour
+        turn_ai1 = not turn_ai1
+
+
+
 def main_menu():
     while True:
         print(f"\nMenu Principal du jeu")
         print(f"\n=== Jeu du TicTacToe ===")
-        print(f"1. Joueur vs Joueur")
-        print(f"2. Joueur vs IA")
+        print(f"1. Joueur VS Joueur")
+        print(f"2. Joueur VS IA")
+        print(f"3. IA VS IA")
         print(f"3. Quittez")
 
         choice = int(input(f"\nQuel mode de jeu voulez-vous jouer ? "))
