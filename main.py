@@ -113,11 +113,14 @@ def player_vs_player():
 
 
 
-def ia_facile():
-    empty_case = get_empty_case()
+def ai_easy(board, symbol):
+    empty_case = get_empty_case(board)
     if empty_case :
         return random.choice(empty_case)
     return False
+
+
+
 
 
 
