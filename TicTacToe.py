@@ -60,9 +60,11 @@ def grid_full():
     return True
 
 def show_message(message):
-    caractere = pygame.font.Font(None, 55)
+    caractere = pygame.font.Font(None, 60)
     text = caractere.render(message, True, (0, 0, 0))
-    rect = text.get_rect(center=screen.get_rect().center)
+    rect = text.get_rect(center=(300, 300))
+    pygame.draw.rect(screen, (255, 255, 255), (50, 250, 500, 100))
+    pygame.draw.rect(screen, (0, 0, 0), (50, 250, 500, 100), 3)
     screen.blit(text, rect)
 
 # Boucle du jeu
