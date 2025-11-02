@@ -1,4 +1,5 @@
 import random
+# faire un score'
 
 def display_board(board):
     print("\n")
@@ -18,28 +19,27 @@ def game_command():
     print(" 7 | 8 | 9")
 
 
-
-def check_victory(board, symbol):
+def check_victory(board, signe):
     # line
-    if board[0] == symbol and board[1] == symbol and board[2] == symbol :
+    if board[0] == signe and board[1] == signe and board[2] == signe :
         return True
-    if board[3] == symbol and board[4] == symbol and board[5] == symbol :
+    if board[3] == signe and board[4] == signe and board[5] == signe :
         return True
-    if board[6] == symbol and board[7] == symbol and board[8] == symbol :
+    if board[6] == signe and board[7] == signe and board[8] == signe :
         return True 
     
     # column
-    if board[0] == symbol and board[3] == symbol and board[6] == symbol :
+    if board[0] == signe and board[3] == signe and board[6] == signe :
         return True
-    if board[1] == symbol and board[4] == symbol and board[7] == symbol :
+    if board[1] == signe and board[4] == signe and board[7] == signe :
         return True
-    if board[2] == symbol and board[5] == symbol and board[8] == symbol :
+    if board[2] == signe and board[5] == signe and board[8] == signe :
         return True
     
     # diagonale
-    if board[0] == symbol and board[4] == symbol and board[8] == symbol :
+    if board[0] == signe and board[4] == signe and board[8] == signe :
         return True
-    if board[2] == symbol and board[4] == symbol and board[6] == symbol :
+    if board[2] == signe and board[4] == signe and board[6] == signe :
         return True
     
     return False
@@ -113,7 +113,7 @@ def player_vs_player():
 
 
 
-def ai_easy(board, symbol):
+def ai_easy(board, signe):
     empty_case = get_empty_case(board)
     if empty_case :
         return random.choice(empty_case)
@@ -121,13 +121,13 @@ def ai_easy(board, symbol):
 
 
 
-def ai_hard(board, symbol):
-    if symbol == "X":
-        next_player = "O"
+def ai_hard(board, signe):
+    if signe == "X":
+        next_player = "O"                                                      
     else :
         next_player = "X"
 
-    empty_case = get_empty_case(board)
+    empty_case = get_empty_case(board)  
     if not empty_case :
         return False
     
@@ -141,8 +141,8 @@ def ai_hard(board, symbol):
     # Gagner 
     for case in empty_case:
         board_test = board.copy()
-        board_test[case] = symbol
-        if check_victory(board_test, symbol):
+        board_test[case] = signe
+        if check_victory(board_test, signe):
             return case
 
     # Jouer au centre
@@ -156,7 +156,7 @@ def ai_hard(board, symbol):
             return corner
         
     # Jouer les miieux
-    middles = [1,3,5,7]
+    middles = [1,3,5,7] 
     for middle in middles :
         if middle in empty_case :
             return middle
@@ -197,14 +197,14 @@ def player_vs_ai():
             first_player = int(input("entrer votre choix 1-2 : "))
 
             if first_player == 1:
-                player_symbol = "X"
-                ai_symbol = "O"
+                player_signe = "X"
+                ai_signe = "O"
                 player_turn = True
                 break
 
             elif first_player == 2:
-                player_symbol = "O"
-                ai_symbol = "X"
+                player_signe = "O"
+                ai_signe = "X"
                 player_turn = False
                 break
 
@@ -213,8 +213,8 @@ def player_vs_ai():
         except ValueError:
             print("Veuillez entrer un chiffre")
         
-    print(f"Vous jouez avec {player_symbol}")
-    print(f"l'IA joue avec {ai_symbol}")
+    print(f"Vous jouez avec {player_signe}")
+    print(f"l'IA joue avec {ai_signe}")
     game_command()
 
     while True:
@@ -222,7 +222,7 @@ def player_vs_ai():
 
         if player_turn:
             # TOUR DU JOUEUR
-            print(f"Tour du joueur {player_symbol}")
+            print(f"Tour du joueur {player_signe}")
             while True:
                 try:
                     player_choice = int(input("Entrer un chiffre entre 1-9 : "))
@@ -240,26 +240,26 @@ def player_vs_ai():
                 except ValueError:
                     print("Veuillez entrez un chiffre svp")
 
-            board[position] = player_symbol
-            current_symbol = player_symbol
+            board[position] = player_signe
+            current_signe = player_signe
             
         else:
             # TOUR DE L'IA
             print(f"Tour de l'IA {level_ai} ")
-            position_ai = ai_function(board, ai_symbol)
+            position_ai = ai_function(board, ai_signe)
             
             if position_ai is not False:
-                board[position_ai] = ai_symbol
+                board[position_ai] = ai_signe
             else:
                 print("Erreur de l'IA")
                 break
                 
-            current_symbol = ai_symbol
+            current_signe = ai_signe
 
         # Vérifier la VICTORE
-        if check_victory(board, current_symbol):
+        if check_victory(board, current_signe):
             display_board(board)
-            if current_symbol == player_symbol:
+            if current_signe == player_signe:
                 print(f"Bravo, vous avez gagné contre l'IA {level_ai} !")
             else:
                 print(f"L'IA {level_ai} a gagné !")
@@ -268,7 +268,7 @@ def player_vs_ai():
         # Vérifier MATCH NUL
         if board_full(board):
             display_board(board)
-            print("🤝 Match nul !")
+            print(" Match nul !")
             break
 
         # Changer de tour
@@ -333,12 +333,12 @@ def ia_vs_ia():
 
         if turn_ai1 :
             print(f"Tour de l'IA 1 ({level_ai1})")
-            print(f"Le symbole de l'IA 1 est X")
+            print(f"Le signee de l'IA 1 est X")
             position = ai1_function(board, "X")
 
             if position is not False:
                 board[position] = "X"
-                current_symbol = "X"
+                current_signe = "X"
             else : 
                 print("Erreur IA 1 !")
                 break
@@ -346,17 +346,17 @@ def ia_vs_ia():
         else :
             # Tour IA 2
             print(f"Tour de l'IA 2 ({level_ai2})")
-            print(f"Le symbole de l'IA 1 est O")
+            print(f"Le signee de l'IA 1 est O")
             position = ai2_function(board, "O")
 
             if position is not False:
                 board[position] = "O"
-                current_symbol = "O"
+                current_signe = "O"
             else : 
                 print("Erreur IA 2 !")
                 break
         
-        if check_victory(board, current_symbol):
+        if check_victory(board, current_signe):
             display_board(board)
             if turn_ai1:
                 print(f"L'IA 1 ({level_ai1}) a gagné")
