@@ -6,6 +6,7 @@ pygame.init()
 width = 600
 height = 600
 screen = pygame.display.set_mode((width, height))
+pygame.display.set_caption("TicTacToe")
 
 grid = []
 for i in range(3):
