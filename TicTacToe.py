@@ -27,3 +27,14 @@ def draw_grid():
     #column
     pygame.draw.line(screen,(0,0,0),(200,0),(200,600),5)
     pygame.draw.line(screen,(0,0,0),(400,0),(400,600),5)
+
+def draw_symbol():
+    for line in range(3):
+        for column in range(3):
+            if grid[line][column] == "X":
+                text = police.render("X", True, (0,0,0))
+                screen.blit(text, (column*200 + 60, line*200 + 50))
+            elif grid[line][column] == "O":
+                text = police.render("0", True, (0,0,0))
+                screen.blit(text, (column*200 + 60, line*200 + 50))
+
