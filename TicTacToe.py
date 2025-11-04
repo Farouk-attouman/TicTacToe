@@ -1,10 +1,10 @@
 import pygame
-
+import random
 pygame.init()
 
 # Dimension
 width = 600
-height = 600
+height = 650
 screen = pygame.display.set_mode((width, height))
 pygame.display.set_caption("TicTacToe")
 
@@ -17,15 +17,24 @@ player = "X"
 
 # Police
 police = pygame.font.Font(None, 100)
+# Variable pour changer le mode
+mode = "Joueur VS Joueur"
 
 def draw_grid():
     screen.fill((255, 255, 255))
     # lignes
-    pygame.draw.line(screen, (0, 0, 0), (200, 0), (200, 600), 5)
-    pygame.draw.line(screen, (0, 0, 0), (400, 0), (400, 600), 5)
+    pygame.draw.line(screen, (0, 0, 0), (200, 50), (200, 650), 5)
+    pygame.draw.line(screen, (0, 0, 0), (400, 50), (400, 650), 5)
     # colonnes
-    pygame.draw.line(screen, (0, 0, 0), (0, 200), (600, 200), 5)
-    pygame.draw.line(screen, (0, 0, 0), (0, 400), (600, 400), 5)
+    pygame.draw.line(screen, (0, 0, 0), (0, 250), (600, 250), 5)
+    pygame.draw.line(screen, (0, 0, 0), (0, 450), (600, 450), 5)
+    # Afficher mode en cours
+    font_mode = pygame.font.Font(None,30)
+    if mode == "Joueur VS Joueur":
+        mode_text = font_mode.render("Mode : Joueur VS Joueur (i pour changer)", True, (0,0,0))
+    else:
+        mode_text = font_mode.render("Mode : Joueur VS IA (i pour changer)", True, (0,0,0))
+    screen.blit(mode_text,(10,10))
 
 def draw_symbol():
     for line in range(3):
@@ -68,6 +77,17 @@ def show_message(message):
     pygame.draw.rect(screen, (0, 0, 0), (50, 250, 500, 100), 3)
     screen.blit(text, rect)
 
+def ai():
+    # IA simple
+    empty_case = []
+    for line in range(3):
+        for column in range(3):
+            if grid[line][column] == " ":
+                empty_case.append((line,column))
+    if empty_case:
+        return random.choice(empty_case)
+    return None
+
 # Boucle du jeu
 clock = pygame.time.Clock()
 running = True
@@ -91,16 +111,44 @@ while running:
                 # Vérifier victoire
                 if check_victory():
                     game_over = True
-                    message = f"Joueur {player} a gagné"
+                    message = f"Joueur {player} a gagné !"
                 elif grid_full():
                     game_over = True
                     message = "Match nul"
                 else:
                     # Changer de joueur
                     player = "O" if player == "X" else "X"
-        
+
+                    #Mode IA
+                    if mode =="Joueur VS IA" and player == "O" and not game_over:
+                        ai_turn = ai()
+                        if ai_turn:
+                            ai_line, ai_column = ai_turn
+                            grid[ai_line][ai_column] = "O"
+                            # Vérifier victoire
+                            if check_victory():
+                                game_over = True
+                                message = "IA a gagné !"
+                            elif grid_full():
+                                game_over = True
+                                message ="Match nul"
+                            else :
+                                player = "X"
+
         if event.type == pygame.KEYDOWN:
+            # Recommencer le jeu
             if event.key == pygame.K_r:
+                grid = []
+                for i in range(3):
+                    grid.append([" ", " ", " "])
+                player = "X"
+                game_over = False
+            # Mode ia
+            elif event.key == pygame.K_i:
+                if mode == "Joueur VS Joueur":
+                    mode = "Joueur VS IA"
+                else:
+                    mode ="Joueur VS Joueur"
                 grid = []
                 for i in range(3):
                     grid.append([" ", " ", " "])
